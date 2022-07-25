@@ -1,12 +1,11 @@
-import { useForm } from 'react-hook-form'
-import { FormContainer, MinutesAmountInput, TaskInput } from './styles'
-import * as zod from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useContext } from 'react'
-import { CyclesContext } from '../..'
+import { useFormContext } from "react-hook-form";
+import { FormContainer, MinutesAmountInput, TaskInput } from "./styles";
+import { useContext } from "react";
+import { CyclesContext } from "../../../../contexts/CyclesContext";
 
 export function NewCycleForm() {
-  const { activeCycle } = useContext(CyclesContext)
+  const { activeCycle } = useContext(CyclesContext);
+  const { register } = useFormContext();
 
   return (
     <FormContainer>
@@ -16,7 +15,7 @@ export function NewCycleForm() {
         type="text"
         list="task-suggestions"
         placeholder="Dê um nome para o seu projeto"
-        {...register('task')}
+        {...register("task")}
         disabled={!!activeCycle}
       />
       <datalist id="task-suggestions">
@@ -33,10 +32,10 @@ export function NewCycleForm() {
         step={5}
         min={5}
         // max={60}
-        {...register('minutesAmount', { valueAsNumber: true })}
+        {...register("minutesAmount", { valueAsNumber: true })}
         disabled={!!activeCycle}
       />
       <span>minutos.</span>
     </FormContainer>
-  )
+  );
 }
